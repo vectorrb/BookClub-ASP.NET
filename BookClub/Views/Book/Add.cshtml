@@ -1,0 +1,56 @@
+﻿@model BookClub.Models.BookGenreView
+
+@{
+    ViewData["Title"] = "AddNewBook";
+}
+
+<div class="row container d-flex justify-content-center align-items-center">
+    <div class="col-lg-7 col-md-6 col-sm-12 p-2 mt-2 border shadow rounded">
+        <h3 class="p-2">Add new book</h3>
+        <form asp-action="Add" class="m-2">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="book.BookName" class="control-label">Book Title</label>
+                <input asp-for="book.BookName" class="form-control" />
+                <span asp-validation-for="book.BookName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="book.BookAuthor" class="control-label">Book Author</label>
+                <input asp-for="book.BookAuthor" class="form-control" />
+                <span asp-validation-for="book.BookAuthor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="book.BookImageUrl" class="control-label">Book Image URL</label>
+                <input asp-for="book.BookImageUrl" class="form-control" />
+                <span asp-validation-for="book.BookImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="book.Genre" class="control-label">Choose a genre:</label>
+                @Html.DropDownList("Genre",
+                    new SelectList(Enum.GetValues(typeof(Genre))),
+                    "Select Genre",
+                    new
+                         {
+                             @class = "form-control dropdown-genre",
+                             @style = "width: 200px;"
+                         }
+                        )
+                @*
+                    <input asp-for="Genre" class="form-control" />
+                    <span asp-validation-for="Genre" class="text-danger"></span>
+                *@
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="book.Description" class="control-label"></label>
+                <input asp-for="book.Description" class="form-control" />
+                <span asp-validation-for="book.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

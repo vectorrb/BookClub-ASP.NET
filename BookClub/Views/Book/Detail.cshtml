@@ -1,0 +1,153 @@
+﻿@model BookClub.Models.BookComment
+@{
+	var username = TempData["username"];
+	var userId = TempData["userId"];
+
+}
+<div class="row px-xl-5 bg-light">
+	<div class="col-10">
+	</div>
+
+	<div class="col-2 mt-2 ">
+		<button class="btn btn-outline-danger mt-2" id="myBtn">
+			Logout
+		</button>
+	</div>
+
+	<div class="row container">
+	</div>
+
+	<div class="col-lg-5 pt-5">
+		<img class="img-fluid" src="@Model.book.BookImageUrl" alt="Image">
+	</div>
+
+	<div class="col-lg-7 pt-5">
+		<div class="row">
+			<div class="col-9">
+				<h1 class="font-weight-semi-bold book-title">@Model.book.BookName</h1>
+			</div>
+			<div class="col-3">
+				<button onclick="deleteConfirm('@Model.book.BookId')" class="btn btn-danger">
+					<i class="fa fa-trash"></i> Delete
+				</button>
+			</div>
+		</div>
+
+		<h3 class="p-2"> by <span class="author-title">@Model.book.BookAuthor</span></h3>
+		<h4>Genre: @Model.book.Genre</h4>
+
+		<div class="d-flex align-items-center mb-4 pt-2">
+			<button (click)="addLike()" class="" style="border: none;outline: none;">
+				<i class="fa fa-thumbs-up"></i>
+				<span class="like m-2">@Model.book.Likes</span>
+			</button>
+			<button (click)="addDislike()" class="m-1" style="border: none;outline: none;">
+				<i class="fa fa-thumbs-down"></i>
+				<span class="like m-2">@Model.book.Dislikes</span>
+			</button>
+		</div>
+
+		<div class="book-desc">
+			<h2>Book Description</h2>
+			<p>@Model.book.Description</p>
+		</div>
+	</div>
+	</>
+	<div class="row d-flex mt-4">
+		<!-- <form>
+			<div class="font-weight-bold"><b>Add Comment on book - </b></div>
+			<textarea rows="4" cols="50">Enter text here...</textarea>
+		</form> -->
+
+		<div class="col-12 justify-content-center">
+			<div class="card shadow-0 border" style="background-color: #f0f2f5;">
+				<div class="card-body p-4">
+					<form class="form-outline mb-4" >
+						<label class="form-label" for="addANote">+ Add a comment</label>
+						<input type="text" id="addANote" class="form-control" placeholder="Type your comment..."
+							   required />
+						<button class="btn btn-outline-dark mt-1" type="submit" asp-action="AddComment"
+						asp-route-id="@userId" asp-route-bookid="@Model.book.BookId" >Add</button>
+					</form>
+					@foreach (var item in Model.comment)
+					{
+						<div class="card mb-4">
+							<div class="card-body">
+								<p>@item.comment.Comment</p>
+
+								<div class="d-flex justify-content-between">
+									<div class="d-flex flex-row align-items-center">
+										<img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="avatar" width="25"
+										 height="25" />
+										<p class="small mb-0 ms-2">@item.userName</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title">Delete Book</h3>
+			</div>
+			<div class="modal-body">
+				<h4>Are you sure you want to delete this book?</h4>
+				<strong id="deletedValueName">
+				</strong>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+
+				<a id="modalDelete" asp-action="Delete"
+						asp-route-id="@Model.book.BookId"  class="btn btn-success">Confirm</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div>
+    <a asp-controller="Book" asp-action="GetBooksList">Back to List</a>
+</div>
+<div class="toast" style="position: absolute; top: 3rem; right: 0; width:300px" data-delay="6000">
+	<div class="toast-header h4">
+		Logging you out...
+	</div>
+	<div class="toast-body">
+	</div>
+</div>
+@section scripts{
+<script>
+	$(document).ready(function(){
+	  $("#myBtn").click(function(){
+
+	  $('.toast').toast('show');
+
+	setTimeout(() => {
+	  location.replace("/home/logout");
+	}, 1000)
+
+
+	  });
+	});
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+	var deleteConfirm = function (val) {
+		$('#hiddenBookId').text(val);
+		console.log(val);
+		$('#myModal').modal();
+	};
+
+
+</script>
+
+}

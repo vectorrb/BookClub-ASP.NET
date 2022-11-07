@@ -1,0 +1,31 @@
+﻿@model IEnumerable<BookClub.Models.Rbbook>
+@{
+    ViewData["Title"] = "Likedbooks";
+}
+@{
+    object userName = TempData["username"];
+    object userId = TempData["userId"];
+}
+
+<h1>Your Favourite Books</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Book Name</th>
+            <th scope="col">Book Author</th>
+            <th scope="col">Genre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.BookName</td>
+                <td>@item.BookAuthor</td>
+                <td>@item.Genre</td>
+                <td><a class="btn btn-info">Click here</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

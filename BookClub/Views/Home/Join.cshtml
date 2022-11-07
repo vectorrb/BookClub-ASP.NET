@@ -1,0 +1,133 @@
+﻿@model BookClub.Models.Rbuser
+
+@{
+	ViewData["Title"] = "Join";
+}
+
+
+<div class="row container d-flex justify-content-center align-items-center">
+	<div class="col-lg-7 col-md-6 col-sm-12 p-2 mt-2 border shadow rounded">
+		<h3 class="p-2">Register with us...</h3>
+		<form asp-action="Join" class="m-2">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group mt-2">
+				<label asp-for="FirstName" class="control-label"></label>
+				<input asp-for="FirstName" class="form-control" />
+				<span asp-validation-for="FirstName" class="text-danger"></span>
+			</div>
+			<div class="form-group mt-2">
+				<label asp-for="UserName" class="control-label"></label>
+				<input asp-for="UserName" class="form-control" />
+				<span asp-validation-for="UserName" class="text-danger"></span>
+			</div>
+			<div class="form-group mt-2">
+				@*<label asp-for="Gender" class="control-label"></label><br />
+					<div class="form-check form-check-inline">
+					<input asp-for="Gender" class="form-check-input ml-1" name="Gender" type="radio" value="0" />
+					<label asp-for="Gender" class="form-check-label">Male</label>
+					</div>
+					<div class="form-check form-check-inline">
+					<input asp-for="Gender" class="form-check-input ml-1" name="Gender" type="radio" value="1" />
+					<label asp-for="Gender" class="form-check-label">Female</label>
+					</div>
+				*@
+				@Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+				Male
+				@Html.RadioButtonFor(model => model.Gender, "false")
+				Female
+				@Html.RadioButtonFor(model => model.Gender, "true")
+				<span asp-validation-for="Gender" class="text-danger"></span>
+			</div>
+			<div class="form-group mt-2">
+				<label asp-for="DateOfBirth" class="control-label"></label>
+				<input asp-for="DateOfBirth" class="form-control" />
+				<span asp-validation-for="DateOfBirth" class="text-danger"></span>
+			</div>
+			<div class="form-group mt-2">
+				<label asp-for="Hobbies" class="control-label"></label>
+				@*
+					<input asp-for="Hobbies" class="form-control" />
+					<span asp-validation-for="Hobbies" class="text-danger"></span>
+				*@
+				<div>
+					<input id="hobby1" type="checkbox" value="Painting" onclick="myFunction1()" />Painting
+					<input id="hobby2" type="checkbox" value="Reading" onclick="myFunction2()" />Reading
+					<input id="hobby3" type="checkbox" value="Travelling" onclick="myFunction3()" />Travelling
+					<p id="result" type="hidden" style="display: none"></p> 
+					<input id="final" asp-for="Hobbies" style="display: none"/>
+
+				</div>
+				<div class="form-group mt-2">
+					<label asp-for="Password" class="control-label"></label>
+					<input asp-for="Password" class="form-control" />
+					<span asp-validation-for="Password" class="text-danger"></span>
+				</div>
+				<div class="form-group mt-2">
+					<label asp-for="ConfirmPassword" class="control-label"></label>
+					<input asp-for="ConfirmPassword" class="form-control" />
+					<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+				</div>
+				<div class="form-group mt-2">
+					<input type="submit" value="Create" class="btn btn-primary" />
+				</div>
+				<p class="small fw-bold mt-2 pt-1 mt-2">
+					Already a member?
+					<a class="link-danger fw-bold"
+					   asp-controller="Home" asp-action="Login">Login here</a>
+				</p>
+		</form>
+	</div>
+</div>
+@*
+	<div>
+	<a asp-action="Index">Back to List</a>
+	</div>
+*@
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+	function myFunction1() {
+	  var checkBox1 = document.getElementById("hobby1");
+	  if(checkBox1.checked == true){
+		  console.log(document.getElementById("hobby1").value)
+		  let res =
+		  (document.getElementById("hobby1")).value + ", " + (document.getElementById("result").innerHTML)
+
+		  document.getElementById("result").innerHTML = res;
+
+		  console.log(document.getElementById("result").value);
+
+		    document.getElementById("final").value = res;
+
+	  }
+	}
+
+	function myFunction2() {
+	  var checkBox2 = document.getElementById("hobby2");
+	  if(checkBox2.checked == true){
+		  console.log(document.getElementById("hobby2").value)
+		  let res =
+		  (document.getElementById("hobby2")).value + ", " + (document.getElementById("result").innerHTML)
+		  document.getElementById("result").innerHTML = res;
+
+		  console.log(document.getElementById("result").innerHTML);
+		  document.getElementById("final").value = res;
+	  }
+	}
+
+	function myFunction3() {
+	  var checkBox3 = document.getElementById("hobby3");
+	  if(checkBox3.checked == true){
+		  console.log(document.getElementById("hobby3").value)
+		  let res =
+		  (document.getElementById("hobby3")).value + ", " + (document.getElementById("result").innerHTML)
+		  document.getElementById("result").innerHTML = res;
+
+		  console.log(document.getElementById("result").innerHTML);
+		  document.getElementById("final").value = res;
+	  }
+	}
+</script>

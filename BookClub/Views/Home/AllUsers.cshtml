@@ -1,0 +1,86 @@
+﻿@model IEnumerable<BookClub.Models.Rbuser>
+
+@{
+    ViewData["Title"] = "All Users";
+    int count = 0;
+    int Increment(int n){
+        count += 1;
+        return count;
+    }
+}
+
+<div class="row">
+	<div class="col-8">
+		<h1>All Users</h1>
+	</div>
+	<div class="col-2">
+		<a asp-controller="book" asp-action="AllBooks"
+		   class="btn btn-info">All Books</a>
+	</div>
+</div>
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th style="text-align: right;">-</th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                User Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hobbies)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td style="text-align: right;">@Increment(count)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hobbies)
+            </td>
+            <td class="text-center">
+                @{
+                    if (item.Gender==false)
+                    {
+                        ViewBag.gender = "Male";
+                    }
+                    else
+                    {
+                        ViewBag.gender = "Female";
+                    }
+                }
+                @ViewBag.gender
+            </td>
+            <td>
+                @Html.TextBoxFor(m => item.DateOfBirth, "{0: MMM dd, yyyy}", 
+                new{
+                    style="outline: none; border: none; background: transparent;"
+                })
+
+            </td>
+
+            <td>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div>
+    <a asp-controller="Book" asp-action="GetBooksList">Back to List</a>
+</div>

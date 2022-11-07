@@ -1,0 +1,79 @@
+﻿@model BookClub.Models.BookGenreView
+
+@{
+	ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Rbbook</h4>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="Edit">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<input type="hidden" asp-for="book.BookId" />
+			<div class="form-group">
+				<label asp-for="book.BookName" class="control-label"></label>
+				<input asp-for="book.BookName" class="form-control" />
+				<span asp-validation-for="book.BookName" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="book.BookAuthor" class="control-label"></label>
+				<input asp-for="book.BookAuthor" class="form-control" />
+				<span asp-validation-for="book.BookAuthor" class="text-danger"></span>
+			</div>
+			<input type="hidden" asp-for="book.Likes" />
+
+			<input type="hidden" asp-for="book.Dislikes" />
+
+			<div class="form-group">
+				<label asp-for="book.BookImageUrl" class="control-label"></label>
+				<input asp-for="book.BookImageUrl" class="form-control" />
+				<span asp-validation-for="book.BookImageUrl" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="book.Genre" class="control-label">Choose a genre:</label>
+				@Model.book.Genre
+				@Html.DropDownList("Genre",
+				new SelectList(Enum.GetValues(typeof(Genre))),
+				"Select Genre",
+				new
+				{
+				@class = "form-control dropdown-genre",
+				@style = "width: 200px;",
+
+				}
+				)
+				@*
+				<label asp-for="book.Genre" class="details">Select Trainer Name</label><br />
+				<select asp-for="book.Genre"
+						asp-items=""
+						name="Trainer"
+						class="form-control">
+					<option value="" disabled selected>Pick a Trainer</option>
+
+					*@
+
+				</select>
+				@*
+					<input asp-for="Genre" class="form-control" />
+					<span asp-validation-for="Genre" class="text-danger"></span>
+				*@
+			</div>
+			<div class="form-group">
+				<label asp-for="book.Description" class="control-label"></label>
+				<input asp-for="book.Description" class="form-control" />
+				<span asp-validation-for="book.Description" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Save" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>
+

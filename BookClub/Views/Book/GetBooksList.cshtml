@@ -1,0 +1,87 @@
+﻿@model IEnumerable<BookClub.Models.Rbbook>
+<div class="row">
+    @{
+        object userName = TempData["username"];
+        object userId = TempData["userId"];
+    }
+
+
+
+    <div class="container row">
+        <h2 class="col-6">Hi @userName</h2>
+        <div class="container col-2">
+            <a asp-controller="Book" asp-action="AllBooks"
+               class="btn btn-info">All Books</a>
+        </div>
+        <div class="container col-2">
+            <a asp-controller="Home" asp-action="AllUsers"
+               class="btn btn-info">All Users</a>
+
+        </div>
+        <div class="container col-2">
+            <a class="btn btn-danger" id="myBtn">
+                Logout
+            </a>
+        </div>
+    </div>
+    <div class="container row">
+        <h3>All Books</h3>
+    </div>
+    <div class="container">
+        @*
+            <a asp-action="Genre" asp-route-genre="Self-help" class="btn btn-info m-2">Self-help</a>
+            <a asp-action="Genre" asp-route-genre="Biography" class="btn btn-info m-2">Biography</a>
+            <a asp-action="Genre" asp-route-genre="Mystery" class="btn btn-info m-2">Mystery</a>
+        *@
+        <a asp-controller="Book" asp-action="Add" class="btn btn-warning m-3">Add a Book</a>
+
+
+    </div>
+
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="card shadow border-0 mb-4">
+                <div class="card-header position-relative bg-transparent border p-0">
+                    <img class="" src="@item.BookImageUrl" alt="@item.BookName" width=250 height=350>
+                </div>
+                <div class="card-body border-left border-right text-center p-0 pt-4 pb-3 border">
+                    <h6 class="text-truncate mb-3">@item.BookName</h6>
+                    <div class="d-flex justify-content-center">
+                        <h6>@item.BookAuthor</h6>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between bg-light border">
+                    <a asp-action="Detail" asp-route-id="@item.BookId" class="btn btn-outline-success text-dark p-1">
+                        <i class="fa fa-eye"></i> View Detail
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="toast" style="position: absolute; top: 3rem; right: 0; width:300px" data-delay="6000">
+	<div class="toast-header h4">
+		Logging you out...
+	</div>
+	<div class="toast-body">
+	</div>
+</div>
+@section scripts{
+<script>
+	$(document).ready(function(){
+	  $("#myBtn").click(function(){
+
+	  $('.toast').toast('show');
+
+	setTimeout(() => {
+	  location.replace("/home/logout");
+	}, 1000)
+
+
+	  });
+	});
+</script>
+}
